@@ -13,7 +13,7 @@ namespace MapstedAssignment
         {
             // It's added for Directional Purpose
             Console.WriteLine("\n--- Indoor Navigation System ---");
-            Console.WriteLine("Are you want work with Direcional edges?");
+            Console.WriteLine("Are you want to work with Direcional edges?");
             Console.WriteLine("Please enter Y for Yes and N for No.");
             Console.Write("Enter an option: ");
 
