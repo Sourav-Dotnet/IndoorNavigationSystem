@@ -51,7 +51,7 @@ namespace MapstedAssignment
                 var room1 = rooms[room1Id];
                 var room2 = rooms[room2Id];
                 paths.Add(new Path(room1, room2, length));
-                if(!isDirectional)
+                if(!isDirectional)  // condition for checking direction for Add Path
                 paths.Add(new Path(room2, room1, length)); // Bidirectional
                 Console.WriteLine($"Path added between {room1.Name} and {room2.Name} with length {length}m.");
             }
@@ -128,7 +128,7 @@ namespace MapstedAssignment
 
                 // Explore neighbors
                 var neighbors = isDirectional == true ? (paths.Where(p => p.StartRoom.Id == currentRoomId)) 
-                    : (paths.Where(p => p.StartRoom.Id == currentRoomId || p.DesRoom.Id == currentRoomId)); // This condition is using for Directional Purpose
+                    : (paths.Where(p => p.StartRoom.Id == currentRoomId || p.DesRoom.Id == currentRoomId)); // This condition is being used for Directional Purpose
                 foreach (var path in neighbors)
                 {
                     var neighborRoomId = path.StartRoom.Id == currentRoomId ? path.DesRoom.Id : path.StartRoom.Id;
