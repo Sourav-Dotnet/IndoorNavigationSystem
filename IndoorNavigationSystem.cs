@@ -44,13 +44,14 @@ namespace MapstedAssignment
         }
 
         // Add a path between two rooms
-        public void AddPath(string room1Id, string room2Id, int length)
+        public void AddPath(string room1Id, string room2Id, int length, bool isDirectional)
         {
             if (rooms.ContainsKey(room1Id) && rooms.ContainsKey(room2Id))
             {
                 var room1 = rooms[room1Id];
                 var room2 = rooms[room2Id];
                 paths.Add(new Path(room1, room2, length));
+                if(!isDirectional)
                 paths.Add(new Path(room2, room1, length)); // Bidirectional
                 Console.WriteLine($"Path added between {room1.Name} and {room2.Name} with length {length}m.");
             }
@@ -94,7 +95,7 @@ namespace MapstedAssignment
         }
 
         // Find the shortest path between two rooms using Dijkstra's algorithm
-        public void FindShortestPath(string startRoomId, string endRoomId)
+        public void FindShortestPath(string startRoomId, string endRoomId, bool isDirectional)
         {
             if (!rooms.ContainsKey(startRoomId) || !rooms.ContainsKey(endRoomId))
             {
@@ -126,7 +127,8 @@ namespace MapstedAssignment
                     break;
 
                 // Explore neighbors
-                var neighbors = paths.Where(p => p.StartRoom.Id == currentRoomId || p.DesRoom.Id == currentRoomId);
+                var neighbors = isDirectional == true ? (paths.Where(p => p.StartRoom.Id == currentRoomId)) 
+                    : (paths.Where(p => p.StartRoom.Id == currentRoomId || p.DesRoom.Id == currentRoomId)); // This condition is using for Directional Purpose
                 foreach (var path in neighbors)
                 {
                     var neighborRoomId = path.StartRoom.Id == currentRoomId ? path.DesRoom.Id : path.StartRoom.Id;

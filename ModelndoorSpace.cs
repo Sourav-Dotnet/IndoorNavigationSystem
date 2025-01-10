@@ -27,13 +27,13 @@ namespace MapstedAssignment
             public Room StartRoom { get; set; }
             public Room DesRoom { get; set; }
             public int Length { get; set; }
-
+            public bool IsDirectional { get; set; } // It shows true means Directinal  
             public Path(Room room1, Room room2, int length)
             {
                 StartRoom = room1;
                 DesRoom = room2;
-                Length = length;
+                Length = length;                
             }
-        }
+        }        
     }
 }

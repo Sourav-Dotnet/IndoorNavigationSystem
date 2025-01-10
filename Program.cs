@@ -11,6 +11,19 @@ namespace MapstedAssignment
         // Main method to interact with the user
         static void Main(string[] args)
         {
+            // It's added for Directional Purpose
+            Console.WriteLine("\n--- Indoor Navigation System ---");
+            Console.WriteLine("Are you want work with Direcional edges?");
+            Console.WriteLine("Please enter Y for Yes and N for No.");
+            Console.Write("Enter an option: ");
+
+            var dirChoice = Console.ReadLine();
+            bool isDirectional = false;
+            if (dirChoice.ToUpper() == "Y")
+            {
+                isDirectional = true;
+            }           
+
             var navigationSystem = new IndoorNavigationSystem();
 
             // Predifine set of rooms and paths for single floor layout
@@ -20,18 +33,19 @@ namespace MapstedAssignment
             navigationSystem.AddRoom("R4", "ROOM D");
             navigationSystem.AddRoom("R5", "ROOM E");
 
-            navigationSystem.AddPath("R1", "R2", 20);
-            navigationSystem.AddPath("R1", "R3", 35);
-            navigationSystem.AddPath("R1", "R4", 30);
-            navigationSystem.AddPath("R1", "R5", 60);
+            navigationSystem.AddPath("R1", "R2", 20, isDirectional);
+            navigationSystem.AddPath("R1", "R3", 35, isDirectional);
+            navigationSystem.AddPath("R1", "R4", 30, isDirectional);
+            navigationSystem.AddPath("R1", "R5", 60, isDirectional);
 
-            navigationSystem.AddPath("R2", "R3", 10);
-            navigationSystem.AddPath("R2", "R4", 15);
+            navigationSystem.AddPath("R2", "R1", 5, isDirectional);  // It's added for Directional Purpose
+            navigationSystem.AddPath("R2", "R3", 10, isDirectional);
+            navigationSystem.AddPath("R2", "R4", 15, isDirectional);
 
-            navigationSystem.AddPath("R3", "R4", 20);
-            navigationSystem.AddPath("R3", "R5", 40);
+            navigationSystem.AddPath("R3", "R4", 20, isDirectional);
+            navigationSystem.AddPath("R3", "R5", 40, isDirectional);
 
-            navigationSystem.AddPath("R4", "R5", 15);
+            navigationSystem.AddPath("R4", "R5", 15, isDirectional);
 
             bool running = true;
             while (running)
@@ -50,15 +64,15 @@ namespace MapstedAssignment
 
                 switch (choice)
                 {
-                    case "1":
+                    case "1": 
                         navigationSystem.DisplayRooms();
                         break;
                     case "2":
                         Console.Write("Enter Start Room ID: ");
                         string startRoomId = Console.ReadLine();
                         Console.Write("Enter Destination Room ID: ");
-                        string endRoomId = Console.ReadLine();
-                        navigationSystem.FindShortestPath(startRoomId, endRoomId);
+                        string endRoomId = Console.ReadLine();                       
+                        navigationSystem.FindShortestPath(startRoomId, endRoomId, isDirectional);
                         break;
                     case "3":
                         Console.Write("Enter Room ID: ");
@@ -79,7 +93,7 @@ namespace MapstedAssignment
                         string room2Id = Console.ReadLine();
                         Console.Write("Enter Path Length: ");
                         int length = int.Parse(Console.ReadLine());
-                        navigationSystem.AddPath(room1Id, room2Id, length);
+                        navigationSystem.AddPath(room1Id, room2Id, length, isDirectional);
                         break;
                     case "6":
                         Console.Write("Enter Start Room ID: ");
